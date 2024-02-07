@@ -16,9 +16,9 @@ class QuizInterface:
         self.show_next_question()
         correct_img = PhotoImage(file='images/true.png')
         false_img = PhotoImage(file='images/false.png')
-        self.correct_button = Button(image=correct_img)
+        self.correct_button = Button(image=correct_img, command= lambda x='True': self.fetch_answer(x))
         self.correct_button.grid(row=2, column=0, padx=20, pady=20)
-        self.wrong_button = Button(image=false_img)
+        self.wrong_button = Button(image=false_img, command=lambda x='False': self.fetch_answer(x))
         self.wrong_button.grid(row=2, column=1, padx=20, pady=20)
 
 
@@ -26,3 +26,7 @@ class QuizInterface:
     def show_next_question(self):
         q_text = self.quiz.next_question()
         self.question_canvas.itemconfig(self.question_text, text=q_text)
+
+    def fetch_answer(self, user_answer):
+        self.quiz.check_answer(user_answer)
+        self.showshow_next_question()
