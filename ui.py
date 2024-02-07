@@ -28,5 +28,12 @@ class QuizInterface:
         self.question_canvas.itemconfig(self.question_text, text=q_text)
 
     def fetch_answer(self, user_answer):
-        self.quiz.check_answer(user_answer)
-        self.showshow_next_question()
+        is_true = self.quiz.check_answer(user_answer)
+        self.process_answer(is_true)
+        self.window.after(1000, self.show_next_question)
+
+    def process_answer(self, is_true):
+        if is_true:
+            self.question_canvas.config(bg='green')
+        else:
+            self.question_canvas.config(bg='red')
