@@ -24,9 +24,14 @@ class QuizInterface:
 
         self.window.mainloop()
     def show_next_question(self):
-        self.question_canvas.config(bg='white')
-        q_text = self.quiz.next_question()
-        self.question_canvas.itemconfig(self.question_text, text=q_text)
+        if self.quiz.still_has_questions():
+            self.question_canvas.config(bg='white')
+            q_text = self.quiz.next_question()
+            self.question_canvas.itemconfig(self.question_text, text=q_text)
+        else:
+            self.question_canvas.itemconfig(self.question_text, text='You have reached the end of the quiz.\n Thanks for playing.')
+            self.correct_button.config(state='disabled')
+            self.wrong_button.config(state='disabled')
 
     def fetch_answer(self, user_answer):
         is_true = self.quiz.check_answer(user_answer)
