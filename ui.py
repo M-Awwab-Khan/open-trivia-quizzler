@@ -30,11 +30,12 @@ class QuizInterface:
 
     def fetch_answer(self, user_answer):
         is_true = self.quiz.check_answer(user_answer)
-        self.process_answer(is_true)
+        self.give_feedback(is_true)
         self.window.after(1000, self.show_next_question)
 
-    def process_answer(self, is_true):
+    def give_feedback(self, is_true):
         if is_true:
             self.question_canvas.config(bg='green')
+            self.score_label.config(text=f'Score: {self.quiz.score}')
         else:
             self.question_canvas.config(bg='red')
